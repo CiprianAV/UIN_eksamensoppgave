@@ -1,0 +1,52 @@
+.navbar__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  
+  .navbar__left,
+  .navbar__center,
+  .navbar__right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar__center {
+    gap: 2rem;
+    justify-content: center;
+    flex: 1; 
+  }
+  
+  .navbar__left {
+    flex: 0 0 auto;
+  }
+  
+  .navbar__right {
+    flex: 0 0 auto;
+  }
+  
+.navbar__link,
+.navbar__logo,
+.navbar__login {
+  text-decoration: none;
+}
+
+.navbar__logo {
+    font-size: 1.5rem;     
+    font-weight: bold;
+    color: #000;          
+    text-decoration: none;
+  }
+
+  .navbar__link {
+    color: #000;               
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+ 
+  
