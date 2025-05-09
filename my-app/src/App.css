@@ -11,6 +11,24 @@
     background: #f9fafb;
     color: #ff0745; /* Logg inn*/
   }
+
+  .event-list {
+    display: grid;
+    grid-template-columns: 1fr; /*for mobil*/
+    gap: 1rem;
+  }
+
+  @media (min-width: 600px) {
+    .event-list {
+      grid-template-columns: repeat(2, 1fr); /*for tablet*/
+    }
+  }
+
+  @media (min-width: 900px) {
+    .event-list {
+    grid-template-columns: repeat(3, 1fr); /*for desktop*/
+    }
+  }
   
   /* Evt legge inn navbar css - eller lage egen css for det */
   
