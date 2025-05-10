@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ticketmaster from '../api/useTicketmaster';
+import useTicketmaster from '../api/useTicketmaster';
 
-export default function featuredEvents() {
+export default function FeaturedEvents() {
     const { data: events, loading, error } =
-    ticketmaster('events', { size: 50});
+    useTicketmaster('events', { size: 50});
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -20,7 +20,7 @@ export default function featuredEvents() {
 
     return (
         <section>
-            <h2>Features Festivals</h2>
+            <h2>Featured Festivals</h2>
             <div className="event-list">
                 {events.map(e => (
                     <article key={e.id} className="event-card">
