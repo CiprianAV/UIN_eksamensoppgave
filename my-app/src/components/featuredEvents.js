@@ -4,7 +4,7 @@ import useTicketmaster from '../api/useTicketmaster';
 
 export default function FeaturedEvents() {
     const { data: events, loading, error } =
-    useTicketmaster('events', { size: 50});
+    useTicketmaster('events', { size: 4});
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
