@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 
-const API_KEY = process.env.TICKETMASTER_API_KEY;
+const API_KEY = process.env.REACT_APP_TICKETMASTER_API_KEY;
 const BASE_URL = 'https://app.ticketmaster.com/discovery/v2/';
 
-export default function ticketmaster(path, query ={}) {
+export default function useTicketmaster(path, query ={}) {
     const [data, setData]  = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError]  = useState(null);
 
 useEffect (() => {
     const params = new URLSearchParams({ apikey:API_KEY, ...query});
-    const url   = `${BASE_URL}/${path}.json?{params}`;
+    const url   = `${BASE_URL}/${path}.json?${params}`;
 
     setLoading(true);
     fetch(url)
