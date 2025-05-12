@@ -12,12 +12,16 @@ export default function FeaturedEvents() {
     ];
 
     const { data: events, loading, error } =
-    useTicketmaster('events', { size: 4, classificationName: 'music'});
+    useTicketmaster('events', { size: 4, classificationName: 'music', countryCode: 'NO'});
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     const featured = events.filter(e => festivalNames.includes(e.name));
+
+    //console logger her for å sjekke hvilken navner kommer tilbake fra Ticketmaster
+    console.log('All music events:', events.map(e => e.name));
+    console.log('Filtered festivals:', featured.map(e => e.name))
 
     return (
         <section>
