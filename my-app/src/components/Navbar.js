@@ -14,7 +14,7 @@ export default function Navbar() {
     <div className="navbar__center">
       <Link to="/category/musikk" className="navbar__link">Musikk</Link>
       <Link to="/category/sport" className="navbar__link">Sport</Link>
-      <Link to="/category/teater" className="navbar__link">Teater</Link>
+      <Link to="/category/teater" className="navbar__link">Teater/Show</Link>
     </div>
 
     <div className="navbar__right">

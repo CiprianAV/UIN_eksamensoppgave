@@ -7,7 +7,7 @@ export default function Dashboard() {
     return (
       <form onSubmit={e => { e.preventDefault(); setLoggedIn(true); }}>
         <h1>Logg inn </h1>
-        <input type="email" required placeholder="E-post" />
+        <input type="username" required placeholder="Username" />
         <button type="submit">Logg inn</button>
       </form>
     );

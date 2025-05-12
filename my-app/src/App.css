@@ -18,6 +18,12 @@
     gap: 1rem;
   }
 
+  .event-card {
+  max-width: 500px;
+  padding: 20px;
+  margin: 0 auto;
+  }
+
   @media (min-width: 600px) {
     .event-list {
       grid-template-columns: repeat(2, 1fr); /*for tablet*/
