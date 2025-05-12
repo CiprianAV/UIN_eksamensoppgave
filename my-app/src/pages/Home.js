@@ -1,5 +1,5 @@
 import React from 'react';
-import FeaturedEvents from '../components/featuredEvents';
+import FeaturedEvents from '../components/FeaturedEvents';
 
 
 export default function Home() {

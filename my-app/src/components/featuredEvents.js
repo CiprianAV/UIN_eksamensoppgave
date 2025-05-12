@@ -3,20 +3,21 @@ import { Link } from 'react-router-dom';
 import useTicketmaster from '../api/useTicketmaster';
 
 export default function FeaturedEvents() {
-    const { data: events, loading, error } =
-    useTicketmaster('events', { size: 4});
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-
-    const wanted = [
+    const festivalNames = [
         'Findings',
         'Neon',
         'Skeikampenfestivalen',
         'Tons of Rock'
     ];
 
-    const featured = events.filter(e => wanted.includes(e.name));
+    const { data: events, loading, error } =
+    useTicketmaster('events', { size: 4, classificationName: 'music'});
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    const featured = events.filter(e => festivalNames.includes(e.name));
 
     return (
         <section>
