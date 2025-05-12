@@ -1,0 +1,1 @@
+export const TM_API_KEY = 'zxCli9MGG71C6B9BbjZUNet8iJwcjbh6';

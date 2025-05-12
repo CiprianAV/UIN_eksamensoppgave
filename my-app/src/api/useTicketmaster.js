@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { TM_API_KEY as API_KEY } from '../config';
 
-const API_KEY = process.env.REACT_APP_TICKETMASTER_API_KEY;
 const BASE_URL = 'https://app.ticketmaster.com/discovery/v2/';
 
 export default function useTicketmaster(path, query ={}) {
