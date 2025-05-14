@@ -8,9 +8,12 @@ export default function useTicketmaster(path, query ={}) {
     const [loading, setLoading] = useState(true);
     const [error, setError]  = useState(null);
 
+    const serializedQuery = JSON.stringify(query);
+
 useEffect (() => {
     const params = new URLSearchParams({ apikey:API_KEY, ...query});
     const url   = `${BASE_URL}/${path}.json?${params}`;
+    //console.log('Fetching Ticketmaster:', url);
 
     setLoading(true);
     fetch(url)
@@ -24,7 +27,7 @@ useEffect (() => {
         })
         .catch(err => setError(err))
         .finally(() => setLoading(false));
-    }, [path, JSON.stringify(query)]);
+    }, [path, serializedQuery]);
 
     return { data, loading, error };
 }
