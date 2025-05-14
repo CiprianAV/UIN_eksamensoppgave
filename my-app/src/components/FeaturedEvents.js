@@ -16,22 +16,33 @@ export default function FeaturedEvents() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        Promise.all(
-            festivalIds.map(id =>
-                fetch(
-                    `https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${TM_API_KEY}`
-                )
-                .then(res => {
-                    if (!res.ok) throw new Error(`Error ${res.status}`);
-                    return res.json();
-                })
-            )
-        )
-        .then(list => setEvents(list))
-        .catch(err => setError(err))
-        .finally(() => setLoading(false));
-    }, []);
+   useEffect(() => {
+  (async () => {
+    setLoading(true);
+    try {
+      const results = [];
+      for (const id of festivalIds) {
+        // 1) Hente festivaler fra Ticketmaster
+        // 2) Bruke id fra festivalIds isteden for festivalNames
+        const res = await fetch(
+          `https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${TM_API_KEY}`
+        );
+        if (!res.ok) throw new Error(`Error ${res.status}`);
+        const json = await res.json();
+        results.push(json);
+
+        // 2) 250ms pause mellom hver request
+        await new Promise(resolve => setTimeout(resolve, 250)); 
+      }
+      setEvents(results);
+    } catch (err) {
+      setError(err);
+    } finally { 
+      setLoading(false);
+    }
+  })();
+}, []);
+
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
