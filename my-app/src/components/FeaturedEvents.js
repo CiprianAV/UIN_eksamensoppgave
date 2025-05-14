@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import useTicketmaster from '../api/useTicketmaster';
 import { TM_API_KEY } from '../config';
 
 export default function FeaturedEvents() {
@@ -24,6 +23,7 @@ export default function FeaturedEvents() {
       for (const id of festivalIds) {
         // 1) Hente festivaler fra Ticketmaster
         // 2) Bruke id fra festivalIds isteden for festivalNames
+        
         const res = await fetch(
           `https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${TM_API_KEY}`
         );
