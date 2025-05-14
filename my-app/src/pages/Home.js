@@ -1,11 +1,11 @@
 import React from 'react';
 import FeaturedEvents from '../components/FeaturedEvents';
-import '../styles/Home.css'; // Assuming you have a CSS file for styling
+import '../styles/Home.css';
 
 export default function Home() {
   return (
     <main>
-      {/* Heading and cities section */}
+      {/* overskrift and byer section */}
       {/* Dette skal render de 4 featured eventcards */}
       <FeaturedEvents />
       <section className="main-heading">
