@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TM_API_KEY } from '../config';
+import '../styles/FeaturedEvents.css';
 
-export default function FeaturedEvents() {
-
-    const festivalIds = [
+const festivalIds = [
         'Z698xZb_Z16v7eGkFy', //findings Festival
         'Z698xZb_Z17q3oP', //NEON Festival
         'Z698xZb_Z17qfa6', //Skeikampenfestivalen
         'Z698xZb_Z17q3qg' //Tons of Rock
     ];
 
+    // Her flyttet jeg festivalIds ut av komponenten, slik at de ikke blir opprettet på nytt hver gang komponenten rendres.¨
+    // Ettersom festivalIds er en konstant liste, er det mer effektivt å ha den utenfor komponenten.
+    // En annen fordel, vi slipper ESLint warning om at festivalIds er en dependency i useEffect.
+
+export default function FeaturedEvents() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -65,7 +69,7 @@ export default function FeaturedEvents() {
                             <figcaption>{e.name}</figcaption>
                         </figure>
                         <Link to={`/event/${e.id}`}>
-                            <button>Learn more</button>
+                            <button className="event-card__button">Learn more</button>
                         </Link>
                     </article>
                 ))}
