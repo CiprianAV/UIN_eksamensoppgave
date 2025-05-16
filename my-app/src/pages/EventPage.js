@@ -11,7 +11,7 @@ export default function EventPage() {
 
   useEffect(() => { // Henter data fra Ticketmaster API
     async function fetchEvent() {
-      setLoading(true);
+      setLoading(true); 
       try {
         const res = await fetch(
           `https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${TM_API_KEY}`

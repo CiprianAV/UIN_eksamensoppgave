@@ -1,6 +1,7 @@
 import React from 'react';
 import FeaturedEvents from '../components/FeaturedEvents';
 import '../styles/Home.css';
+import CityEvents from '../components/CityEvents';
 
 export default function Home() {
   return (
@@ -10,14 +11,8 @@ export default function Home() {
       <FeaturedEvents />
       <section className="main-heading">
         <h2 className="main-heading__title">Hva skjer i verdens storbyer</h2>
-        <div className="main-heading__cities">
-          <span className="city">Oslo</span>
-          <span className="city">Stockholm</span>
-          <span className="city">Berlin</span>
-          <span className="city">London</span>
-          <span className="city">Paris</span>
-        </div>
-      </section>
+        <CityEvents /> 
+        </section> 
     </main>
   );
 }

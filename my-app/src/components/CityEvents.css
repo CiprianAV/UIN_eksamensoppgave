@@ -1,0 +1,31 @@
+.city-events-container {
+  margin-top: 1rem;
+}
+
+.city-buttons {
+  margin-top: 10px;
+}
+
+.city-button {
+  margin: 5px;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  background-color: #ccc;
+  transition: background-color 0.3s ease;
+}
+
+.city-button.selected {
+  background-color: #007bff;
+}
+
+.city-events-list {
+  display: flex;
+  flex-wrap: nowrap; 
+  gap: 1rem;
+  margin-top: 1rem;
+  overflow-x: auto; 
+  justify-content: flex-start;
+}
