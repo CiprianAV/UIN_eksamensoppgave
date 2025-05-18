@@ -31,6 +31,7 @@ export default function EventPage() {
     fetchEvent();
   }, [id]);
 
+
   if (loading) return <p>Laster inn...</p>; // Viser loading melding
   if (error) return <p>Feil: {error.message}</p>; // Viser (evt) feilmelding
   if (!event) return <p>Ingen data funnet</p>; 

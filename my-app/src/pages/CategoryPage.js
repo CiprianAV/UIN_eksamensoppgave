@@ -1,45 +1,110 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useTicketmaster from '../api/useTicketmaster';
 import '../styles/CategoryPage.css';
+import { TM_API_KEY as API_KEY } from '../config';
 
-
-
-export default function CategoryPage() {
+export default function CategoryPage() { //Henter data fra URL
   const { slug } = useParams();
-  
 
-  // Må oversette slug til engelsk, siden Ticketmaster API bruker engelsk - dermed vil den ikke kunne finne eventer hvis vi bruker norsk slug.
+  // Oversett til engelsk for bruk i API
   const categoryMap = {
     musikk: 'music',
     teater: 'theatre',
     sport: 'sports',
   };
 
-  const translatedCategory = categoryMap[slug.toLowerCase()] || slug;
+  const translatedCategory = categoryMap[slug.toLowerCase()] || slug; // Hvis slug matcher en av kategoriene i categoryMap, oversetter vi den til engelsk. Hvis ikke, bruker vi slug som den er.
 
-  const { data: events, loading, error } = useTicketmaster('events', {
-    classificationName: translatedCategory,
-    size: 12, // Antall eventer som skal hentes
-  });
+  const [events, setEvents] = useState([]); //arrys til å lagre fetcvhed data
+  const [artists, setArtists] = useState([]);
+  const [venues, setVenues] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchAll() {
+      setLoading(true);
+      try {
+        const base = 'https://app.ticketmaster.com/discovery/v2/';
+        const query = `?apikey=${API_KEY}&keyword=${translatedCategory}&size=6`;
+
+        const [eventRes, artistRes, venueRes] = await Promise.all([ //promise.all - henter flere forespørseler samtidig
+          fetch(base + 'events.json' + query), // query er en del av URLen som inneholder apikey og søkeord
+          fetch(base + 'attractions.json' + query),
+          fetch(base + 'venues.json' + query)
+        ]);
+
+        const eventData = await eventRes.json(); //await sørger for at dataene er hentet før vi prøver å bruke dem (ettersom fetch er asynkront)
+        const artistData = await artistRes.json();
+        const venueData = await venueRes.json();
+
+        setEvents(eventData._embedded?.events || []); // optional chaining - sjekker om _embedded og events finnes før vi prøver å bruke dem. Hvis de ikke finnes, settes dem til en tom array.
+        setArtists(artistData._embedded?.attractions || []); // fallback til tom array hvis det ikke finnes data. 
+        setVenues(venueData._embedded?.venues || []);
+        /* 
+        Optional chaining er brukt sammen med fallback. 
+        Hvis en egenskap er undefined eller null vil det ikke bli kastet en feil, men returnere undefined. 
+        Ettersom vi i tilegg bruker || [] (fallback) vil dette igjen erstatte undefined med en tom array. 
+        Dette sikrer at vi kan fortsette å utføre f.eks .map() uten å få en feil.
+        */
+      } catch (err) {
+        setError(err);
+      } finally { // Når alle forespørslene er fullført, setter vi loading til false - 
+        setLoading(false);
+      }
+    }
+
+    fetchAll();
+  }, [translatedCategory]);
+
+
+
+  // slug.charAt(0).toUpperCase() + slug.slice(1) - tar første bokstav og gjør den stor, og legger til resten av strengen.
   return (
-    <main className="category-page"> 
-      <h1>{slug.charAt(0).toUpperCase() + slug.slice(1)}</h1>
+    <main className="category-page">
+      <h1>{slug.charAt(0).toUpperCase() + slug.slice(1)}</h1> 
 
       {loading && <p>Laster inn...</p>}
       {error && <p>Feil: {error.message}</p>}
-      {!loading && events?.length === 0 && <p>Ingen eventer funnet.</p>}
+      
+      {/*Bruker map til å gå igjennom events, dermed viser images, names, and dates.*/}
+      <section>
+        <h2>Arrangementer</h2>
+        <div className="event-grid">
+          {events.map(e => (
+            <div key={e.id} className="event-card">
+              <img src={e.images?.[0]?.url} alt={e.name} />
+              <h3>{e.name}</h3>
+              <p>{e.dates?.start?.localDate}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <div className="event-grid">
-        {events?.map(event => (
-          <article key={event.id} className="event-card"> 
-            <img src={event.images?.[0]?.url} alt={event.name} />
-            <h2>{event.name}</h2>
-            <p>{event.dates?.start?.localDate}</p>
-          </article>
-        ))}
-      </div>
+      <section>
+        <h2>Attraksjoner</h2>
+        <div className="event-grid">
+          {artists.map(a => (
+            <div key={a.id} className="event-card">
+              <img src={a.images?.[0]?.url} alt={a.name} />
+              <h3>{a.name}</h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2>Spillesteder</h2>
+        <div className="event-grid">
+          {venues.map(v => (
+            <div key={v.id} className="event-card">
+              <h3>{v.name}</h3>
+              <p>{v.city?.name}, {v.country?.name}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
