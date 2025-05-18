@@ -1,0 +1,14 @@
+.artist-card {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+}
+
+.artist-card__image {
+    flex: 0 0 200px;
+    width: 100%;
+    overflow: hidden;
+}
