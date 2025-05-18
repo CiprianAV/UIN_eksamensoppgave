@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from './EventCard';
-import './CityEvents.css';
+import '../styles/CityEvents.css';
 
 const cities = ['Oslo', 'London', 'Paris', 'Berlin', 'Sydney', 'Sao Paulo', 'Rio de Janeiro', 'Istanbul', 'New York', 'Los Angeles'];
 

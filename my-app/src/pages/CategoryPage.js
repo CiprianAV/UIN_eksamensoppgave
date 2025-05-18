@@ -3,8 +3,11 @@ import { useParams } from 'react-router-dom';
 import useTicketmaster from '../api/useTicketmaster';
 import '../styles/CategoryPage.css';
 
+
+
 export default function CategoryPage() {
   const { slug } = useParams();
+  
 
   // Må oversette slug til engelsk, siden Ticketmaster API bruker engelsk - dermed vil den ikke kunne finne eventer hvis vi bruker norsk slug.
   const categoryMap = {

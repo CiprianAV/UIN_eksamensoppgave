@@ -1,5 +1,4 @@
 import React from 'react';
-import './EventCard.css';
 
 const EventCard = ({ event, clickable = true }) => {
   const name = event.name;

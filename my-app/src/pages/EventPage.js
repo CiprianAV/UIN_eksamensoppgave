@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TM_API_KEY } from '../config';
 import '../styles/EventPage.css';
+import ArtistCard from '../components/ArtistCard';
+
 
 export default function EventPage() {
   const { id } = useParams(); // Henter id fra URL
@@ -52,6 +54,23 @@ export default function EventPage() {
         {time && <li><strong>Tid:</strong> {time}</li>}
         {venue && <li><strong>Sted:</strong> {venue}</li>}
       </ul>
+
+    {event._embedded?.attractions && (
+      <>
+        <h2>Artister</h2>
+        <div className="artist-grid"> 
+          {event._embedded.attractions.map(artist => ( // Her bruker vi event._embedded.attractions for å hente ut artistene fra eventet
+            <ArtistCard // Her bruker vi ArtistCard komponenten for å vise artistene
+              key={artist.id} // Her bruker vi artist.id som key for å unngå warning i konsollen
+              artist={{ //
+                name: artist.name, // Henter artist navn (evetuelt annen informasjon)
+                image: artist.images?.[0]?.url //Her henter vi bilde. 
+              }}
+            />
+          ))}
+        </div>
+      </>
+    )}
     </main>
   );
 }
