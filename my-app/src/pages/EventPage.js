@@ -7,9 +7,9 @@ import ArtistCard from '../components/ArtistCard';
 
 export default function EventPage() {
   const { id } = useParams(); // Henter id fra URL
-  const [event, setEvent] = useState(null); // Setter initial verdi til null
+  const [event, setEvent] = useState(null); // Setter initial verdi til null - (holder også på data.)
   const [loading, setLoading] = useState(true); // Setter initial verdi til true
-  const [error, setError] = useState(null); // Setter initial verdi til null
+  const [error, setError] = useState(null); // Setter initial verdi til null - (her lagrer vi evt feil som oppstår under henting av data)
 
   useEffect(() => { // Henter data fra Ticketmaster API
     async function fetchEvent() {
@@ -24,7 +24,7 @@ export default function EventPage() {
       } catch (err) { 
         setError(err); 
       } finally { 
-        setLoading(false);
+        setLoading(false); // Setter loading til false når data er hentet.
       }
     }
 
