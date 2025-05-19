@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import EventCard from './EventCard';
 import '../styles/CityEvents.css';
 
+// Lister opp forhåndsvalgte storbyer
 const cities = ['Oslo', 'London', 'Paris', 'Berlin', 'Sydney', 'Sao Paulo', 'Rio de Janeiro', 'Istanbul', 'New York', 'Los Angeles'];
 
 const CityEvents = () => {
+// State for valgt by og tilhørende events
   const [selectedCity, setSelectedCity] = useState('Oslo');
   const [events, setEvents] = useState([]);
 
+// Henter arrangementer når man endrer valg av by 
   useEffect(() => {
     const fetchCityEvents = async () => {
       const API_KEY = 'zxCli9MGG71C6B9BbjZUNet8iJwcjbh6';
@@ -17,6 +20,7 @@ const CityEvents = () => {
       try {
         const response = await fetch(url);
         const data = await response.json();
+// Hvis data finnes, oppdaterers events ellers settes det en tom liste
         if (data._embedded && data._embedded.events) {
           setEvents(data._embedded.events);
         } else {
@@ -27,23 +31,27 @@ const CityEvents = () => {
       }
     };
 
-    fetchCityEvents();
+    fetchCityEvents(); // Kaller funksjonen når komponenten rendres eller selectedCity endres
   }, [selectedCity]);
 
   return (
     <div className="city-events-container">
       <h2>I {selectedCity} kan du oppleve:</h2>
+
+      {/* Knapper for å velge by */}
       <div className="city-buttons">
         {cities.map((city) => (
           <button
             key={city}
-            onClick={() => setSelectedCity(city)}
-            className={`city-button ${city === selectedCity ? 'selected' : ''}`}
+            onClick={() => setSelectedCity(city)} // Oppdaterer valgt by
+            className={`city-button ${city === selectedCity ? 'selected' : ''}`} //Legger til klasse for valgt by
           >
             {city}
           </button>
         ))}
       </div>
+
+      {/* Grid med EventCards for valgt by */}
       <div className="city-events-grid">
         {events.map((event) => (
           <EventCard key={event.id} event={event} clickable={false} />
