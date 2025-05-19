@@ -22,12 +22,31 @@ export default function CategoryPage() { //Henter data fra URL
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [selectedDate, setSelectedDate] = useState(''); // filter funksjon - dato
+  const [selectedCity, setSelectedCity] = useState(''); // by
+  const [selectedCountry, setSelectedCountry] = useState(''); // land
+
   useEffect(() => {
     async function fetchAll() {
       setLoading(true);
       try {
         const base = 'https://app.ticketmaster.com/discovery/v2/';
-        const query = `?apikey=${API_KEY}&keyword=${translatedCategory}&size=6`;
+        let query = `?apikey=${API_KEY}&keyword=${translatedCategory}&size=6`; 
+
+        //dato filter
+         if (selectedDate) {
+          const isoDate = new Date(selectedDate).toISOString(); // konverterer til ISO-format fordi Ticketmaster krever det. 
+          query += `&startDateTime=${isoDate}`;
+        }
+        //by filter
+        if (selectedCity) {
+          query += `&city=${selectedCity}`;
+        }
+
+        //land filter
+        if (selectedCountry) {
+          query += `&countryCode=${selectedCountry}`;
+        }
 
         const [eventRes, artistRes, venueRes] = await Promise.all([ //promise.all - henter flere forespørseler samtidig
           fetch(base + 'events.json' + query), // query er en del av URLen som inneholder apikey og søkeord
@@ -64,6 +83,8 @@ export default function CategoryPage() { //Henter data fra URL
   return (
     <main className="category-page">
       <h1>{slug.charAt(0).toUpperCase() + slug.slice(1)}</h1> 
+
+      {/* filter section */}
 
       {loading && <p>Laster inn...</p>}
       {error && <p>Feil: {error.message}</p>}

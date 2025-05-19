@@ -20,6 +20,7 @@ export default function EventPage() {
         );
         if (!res.ok) throw new Error(`Error ${res.status}`); // Sjekker om responsen er ok
         const json = await res.json(); // Konverterer responsen til JSON 
+        console.log("FULL EVENT DATA:", json);
         setEvent(json); // her har vi all infiormasjonen om eventet, slik at vi kan hente ut det vi trenger. 
       } catch (err) { 
         setError(err); 
