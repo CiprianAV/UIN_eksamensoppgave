@@ -49,7 +49,7 @@ export default function FeaturedEvents() {
 
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
+    if (error) return <p>Error... {error.message}</p>;
 
     //Bytte til e.id siden vi bruker id isteden for festival navner
     //const featured = events.filter(e => festivalNames.includes(e.id));
