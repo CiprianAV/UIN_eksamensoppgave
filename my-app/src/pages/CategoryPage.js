@@ -70,7 +70,12 @@ export default function CategoryPage() { //Henter data fra URL
           fetch(base + 'events.json' + query), // query er en del av URLen som inneholder apikey og søkeord
           fetch(base + 'attractions.json' + query),
           fetch(base + 'venues.json' + query)
-        ]);*/
+        ]);
+        Her er det AI, "console insight" på google chrome, som forslo å prøve setTimeout.
+        i forbindelse med 429 feilmeldingen.
+
+        setTimeout sørger for at hver forespørsel blir forsinket med 500ms, slik at alle forespørslene ikke blir sendt samtidig.
+        */
        
         const eventRes = await fetch(base + 'events.json' + query);
         await new Promise(resolve => setTimeout(resolve, 500));
