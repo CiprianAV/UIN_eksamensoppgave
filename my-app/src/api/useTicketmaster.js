@@ -7,9 +7,11 @@ export default function useTicketmaster(path, query ={}) {
     const [data, setData]  = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError]  = useState(null);
-
+    
+    //her setter vi query objekt til en string.
     const serializedQuery = JSON.stringify(query);
 
+//Her bygger vi url hvor vi kan fetch fra.
 useEffect (() => {
     const params = new URLSearchParams({ apikey:API_KEY, ...query});
     const url   = `${BASE_URL}/${path}.json?${params}`;
