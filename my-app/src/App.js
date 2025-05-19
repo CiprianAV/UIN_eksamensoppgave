@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import EventPage from './pages/EventPage';
 import CategoryPage from './pages/CategoryPage';
 import Dashboard from './pages/Dashboard';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/dashboard"         element={<Dashboard />}    />
         </Routes>
       </main>
+      <Footer />
     </BrowserRouter>
   );
 }
