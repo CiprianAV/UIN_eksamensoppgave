@@ -21,11 +21,25 @@
   background-color: #007bff;
 }
 
-.city-events-list {
-  display: flex;
-  flex-wrap: nowrap; 
-  gap: 1rem;
-  margin-top: 1rem;
-  overflow-x: auto; 
-  justify-content: flex-start;
+.city-events-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); 
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  max-width: 2000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .city-events-grid {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
+
+@media (min-width: 1024px) {
+  .city-events-grid {
+    grid-template-columns: repeat(3, 1fr); 
+  }
 }

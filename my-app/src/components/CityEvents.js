@@ -44,7 +44,7 @@ const CityEvents = () => {
           </button>
         ))}
       </div>
-      <div className="city-events-list">
+      <div className="city-events-grid">
         {events.map((event) => (
           <EventCard key={event.id} event={event} clickable={false} />
         ))}
