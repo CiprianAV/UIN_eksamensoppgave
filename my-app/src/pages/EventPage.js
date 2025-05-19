@@ -20,7 +20,6 @@ export default function EventPage() {
         );
         if (!res.ok) throw new Error(`Error ${res.status}`); // Sjekker om responsen er ok
         const json = await res.json(); // Konverterer responsen til JSON 
-        console.log("FULL EVENT DATA:", json);
         setEvent(json); // her har vi all infiormasjonen om eventet, slik at vi kan hente ut det vi trenger. 
       } catch (err) { 
         setError(err); 
@@ -34,7 +33,7 @@ export default function EventPage() {
 
 
   if (loading) return <p>Laster inn...</p>; // Viser loading melding
-  if (error) return <p>Feil: {error.message}</p>; // Viser (evt) feilmelding
+  if (error) return <p>oops, noe gikk galt.  {error.message}</p>; // Viser (evt) feilmelding
   if (!event) return <p>Ingen data funnet</p>; 
 
   const image = event.images?.[0]?.url; // Henter første bilde fra event.images --- Her bruker vi "?" for å sjekke om event.images finnes, og hvis det gjør det, henter vi første bilde.

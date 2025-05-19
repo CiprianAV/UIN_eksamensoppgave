@@ -36,7 +36,7 @@ export default function FeaturedEvents() {
         results.push(json);
 
         // 2) 250ms pause mellom hver request
-        await new Promise(resolve => setTimeout(resolve, 250)); 
+        await new Promise(resolve => setTimeout(resolve, 500));  //øker fra 250ms til 500ms - pga nye 429 feilmeldinger
       }
       setEvents(results);
     } catch (err) {

@@ -26,12 +26,7 @@ export default function CategoryPage() { //Henter data fra URL
   const [selectedCity, setSelectedCity] = useState(''); // By
   const [selectedCountry, setSelectedCountry] = useState(''); //Land
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchClick, setSearchClick] = useState(false);
 
-  const SearchClick = () => {
-    setSearchClick(prev => !prev); //prev er den forrige verdien av searchClick, noe som gjør at den toggler mellom true og false. 
-  };
 
   useEffect(() => {
     async function fetchAll() {
@@ -41,20 +36,13 @@ export default function CategoryPage() { //Henter data fra URL
         let query = `?apikey=${API_KEY}&keyword=${translatedCategory}&size=6`; 
 
         /*dato filter
+
          if (selectedDate) {
           const isoDate = new Date(selectedDate).toISOString(); // konverterer til ISO-format fordi Ticketmaster krever det. 
           query += `&startDateTime=${isoDate}`;
         }
           !Fjernet dato filteret, fulstending forklaring i eksamensdokumentasjonen.
         */
-
-       if (translatedCategory) {
-          query += `&keyword=${encodeURIComponent(translatedCategory)}`;
-        }
-
-        if (searchTerm) {
-          query += `&keyword=${encodeURIComponent(searchTerm)}`;
-        }
 
         //By filter
         if (selectedCity) {
@@ -70,8 +58,10 @@ export default function CategoryPage() { //Henter data fra URL
           fetch(base + 'events.json' + query), // query er en del av URLen som inneholder apikey og søkeord
           fetch(base + 'attractions.json' + query),
           fetch(base + 'venues.json' + query)
-        ]);*/
-       
+        ]);
+        ! 
+        */
+
         const eventRes = await fetch(base + 'events.json' + query);
         await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -102,8 +92,7 @@ export default function CategoryPage() { //Henter data fra URL
     }
 
     fetchAll();
-    // eslint-disable-next-line
-  }, [translatedCategory, selectedCity, selectedCountry, searchClick ]); // useEffect vil kjøre på nytt når noen av disse verdiene endres.
+  }, [translatedCategory, selectedCity, selectedCountry]); // useEffect vil kjøre på nytt når noen av disse verdiene endres.
 
   // slug.charAt(0).toUpperCase() + slug.slice(1) - tar første bokstav og gjør den stor, dermed legger til resten av strengen.
    return (
@@ -140,21 +129,9 @@ export default function CategoryPage() { //Henter data fra URL
             <option value="Stockholm">Stockholm</option>
           </select>
         </label>
-
-        <label>
-          Søk:
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Søk etter arrangement, artist eller sted"
-          />
-        </label>
-
-        <button onClick={SearchClick}>Søk</button>
       </section>
   
-
+  
       {loading && <p>Laster inn...</p>}
       {error && <p>Feil: {error.message}</p>}
       
